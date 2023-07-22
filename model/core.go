@@ -23,7 +23,8 @@ func init() {
 	password := cfg.Section("mysql").Key("password").String()
 	database := cfg.Section("mysql").Key("database").String()
 	//dsn := "root:root@tcp(127.0.0.1:3306)/springproject?charset=utf8mb4&parseTime=True&loc=Local"
-	dsn := user + ":" + password + "@tcp(" + ip + ":" + port + ")/" + database + "?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local", user, password, ip, port, database)
+	//dsn := user + ":" + password + "@tcp(" + ip + ":" + port + ")/" + database + "?charset=utf8mb4&parseTime=True&loc=Local"
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		fmt.Println(err)
